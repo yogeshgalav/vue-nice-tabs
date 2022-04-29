@@ -3,7 +3,7 @@
   "version": "0.1.1",
   "main": "src/index.js",
   "bin": "src/index.js",
-  "homepage": "https://github.com/yogeshgalav/vue-nice-validate",
+  "homepage": "https://github.com/yogeshgalav/vue-nice-tabs",
   "description": "Vue validation library in form of mixin.",
   "keywords": [
     "vue nice validate",
@@ -26,10 +26,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yogeshgalav/vue-nice-validate"
+    "url": "https://github.com/yogeshgalav/vue-nice-tabs"
   },
   "bugs": {
-    "url": "https://github.com/yogeshgalav/vue-nice-validate/issues"
+    "url": "https://github.com/yogeshgalav/vue-nice-tabs/issues"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
