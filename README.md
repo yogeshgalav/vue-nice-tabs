@@ -1,184 +1,84 @@
-# Vue Nice Validate
-This is the light weight validation mixin similiar to vee-validate with extended support like third-party component validations, single input or selected input or perticular form validations.
+# Vue Nice Tabs
+This is the light weight Nav Tab component with modern UI. 
 ## Project setup
 ```
-npm install vue-nice-validate
+npm install vue-nice-tabs
 ```
 
 ## Usage
 ### Basic Usage
 ```
-import ValidateMixin from 'vue-nice-validate'
+<template>
+    <nav-tabs
+    :tabs="['first','second']"
+    >
+        <template slot="tab-panel-first">
+         first nav tab content
+        </template>
+        <template slot="tab-panel-second">
+         second nav tab content
+        </template>
+    </nav-tabs>
+</template>
+<script>
+import NavTabs from 'vue-nice-tabs'
 
 export default {
-    mixins:[ValidateMixin]
+    components:{ NavTabs}
 }
+</script>
 ```
-### Validating form fields
+### Customizing Header
 
-The validation field are searched and validated by their name attribute. If not present it will skip validation for that field. 
-Use formErrors Method with field_name as paramter to get error
-
-```
-<input
-    name="field_name"
-    v-validate="'required|max:5'"
->
-
-or pass object
-
-<input
-    name="field_name"
-    v-validate="{required:true,max:5}"
->
-<span class="text-danger">{{ formErrors('field_name') }}</span>
-```
-### Get validation errors
-
-use validateForm() method to validate all fields.
-It return a promise with a resolved value as true or false.
-use this.form_errors to get all errors.
-```
-methods:{
-    handleSubmit(){
-        this.validateForm().then(result=>{
-            if(result){
-                \\validation successfull
-            }else{
-                \\validation failed
-            }
-        });
-    }
-}
+If you want to use translation or customize header just use slot with "tab-heading-{tab_name}"
 
 ```
 
-### Validate single forms
-
-To validate on only a single form use attribute validationScope.
-```
-<form validationScope="form_name">
-    <input
-        name="field_name"
-        v-validate="'required'"
+<template>
+    <nav-tabs
+    :tabs="['first','second']"
     >
-    <span class="text-danger">{{ formErrors('form_name.field_name') }}</span>
-</form>
-
-methods:{
-    handleSubmit(){
-        this.validateForm('form_name').then(result=>{
-            if(result){
-                \\validation successfull
-            }else{
-                \\validation failed
-            }
-        });
-    }
-}
+        <template slot="tab-heading-first">
+         {{ $t('First') }}
+        </template>
+        <template slot="tab-panel-first">
+         first nav tab content
+        </template>
+    </nav-tabs>
+</template>
 ```
-### Validate single input
+### Select Intital Tab
 
-To validate on only a single form use attribute validationScope
+If tab name is provided with hash in url it is selected as inital tab.
+If not provided intial tab to be opened is selected with zero index in tabs array.
+
 ```
-<form>
-    <input
-        name="field_name"
-        v-validate="'required'"
+
+<template>
+    <nav-tabs
+    :tabs=['first','second','third']
+    :initial-tab="second"
     >
-    <span class="text-danger">{{ formErrors('field_name') }}</span>
-</form>
-
-methods:{
-    handleSubmit(){
-        this.validateInput('field_name').then(result=>{
-            if(result){
-                \\validation successfull
-            }else{
-                \\validation failed
-            }
-        });
-    }
-}
-```
-### Validate multiple inputs
-
-To validate on only a single form use attribute validationScope
-```
-<form>
-    <input
-        name="field_name"
-        v-validate="'required'"
-    >
-    <span class="text-danger">{{ formErrors('field_name') }}</span>
-    <input
-        name="second_field_name"
-        v-validate="'required'"
-    >
-    <span class="text-danger">{{ formErrors('second_field_name') }}</span>
-</form>
-
-methods:{
-    handleSubmit(){
-        this.validateInputs(['field_name','second_field_name']).then(result=>{
-            if(result){
-                \\validation successfull
-            }else{
-                \\validation failed
-            }
-        });
-    }
-}
-```
-### Validate components
-
-If v-model or value attribute is not present in component, It will read for attribute validation-value
-```
-<third-party-component
-    name="field_name"
-    v-validate="'required'"
-    :validation-value="custom_value"
->
-<span class="text-danger">{{ formErrors('field_name') }}</span>
-
-data(){
-    return {
-        custom_value:'',
-    };
-}
-
-```
-### Manually Add field
-
-If you still struggle with any third party component or have complex requirement just add the field from script section.
-```
-this.addField(field_name,validation_rules,formName)
-where formName is optional parameter.
+        <--- content---->
+    </nav-tabs>
+</template>
 ```
 
-### Manually Manage Errors
+In above Example if url is http://example.com#third,  then third tab is intially selected
+Else second tab is select
+Else if inital tab prop is not passed then first tab is selected.
 
-```
-As this.form_errors is available as data property you can simply add, update or delete error messages by your comfort.
-```
-### Use dynamic input names
+### Props
 
-Underscores will be automatically removed from field names in error message
-For dynamic input fields use field name and hashtag
-```
-<input
-    :name="'field_name#'+123"
-    v-validate="'required'"
->
-<span class="text-danger">{{ formErrors('field_name#'+123) }}</span>
-```
-and error will be show as "field name is required."
 
-### Use only number inside input field
-```
-<input
-    :name="'field_name'"
-    @input="onlyNumber"
-    v-validate="'required'"
->
-```
+| Props         | type      | required   | Default           |
+| ------------- | --------- | ---------- | ----------------  |
+| initialTab    | String    | false      | ''                |
+| tabs          | Array     | true       | []                |
+| disableTab    | Array     | false      | []                |
+| navClass      | String    | false      | ''                |
+| navItemClass  | String    | false      | ''                |
+
+### Events
+
+changeTab(tabName)
