@@ -1,4 +1,4 @@
-import VueNiceTabs from "./VueNiceTabs.js";
+import VueNiceTabs from "./VueNiceTabs.vue";
 
 function install(Vue) {
   if (install.installed) return;

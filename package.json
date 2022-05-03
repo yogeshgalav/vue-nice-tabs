@@ -1,17 +1,14 @@
 {
-  "name": "vue-nice-validate",
+  "name": "vue-nice-tabs",
   "version": "0.1.1",
   "main": "src/index.js",
   "bin": "src/index.js",
   "homepage": "https://github.com/yogeshgalav/vue-nice-tabs",
-  "description": "Vue validation library in form of mixin.",
+  "description": "Vue Nice Tabs ia a nav tab component with mordern UI and url linking with hash.",
   "keywords": [
-    "vue nice validate",
-    "vue validate",
-    "v-validate",
-    "multi form validation",
-    "dynamic input field validation",
-    "form mixin"
+    "vue nice tabs",
+    "vue tabs",
+    "nav tabs"
   ],
   "author": "Yogesh Galav <mr.yogesh.galav@gmail.com> (https://github.com/yogeshgalav/)",
   "private": false,

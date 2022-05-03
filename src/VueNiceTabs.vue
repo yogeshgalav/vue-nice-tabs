@@ -38,9 +38,11 @@
   </div>
 </template>
 <style lang="scss">
-@import "resources/sass/_variables.scss";
 .nav-tabs {
   border-bottom: none;
+}
+.nav-tabs .nav-link {
+  border: 1px solid transparent;
 }
 .tabbed-nav-list {
     display: flex;
@@ -71,7 +73,10 @@
 }
 
 // Nav Tab 2
-.nav-link.active {
+.nav-link {
+    display: block;
+}
+.nav-link .active {
     border-color: white !important;
 }
 .tabbed-nav2 .nav-item .active {
@@ -109,7 +114,7 @@
     background: #fff;
 }
 .tabbed-nav2 .nav-item {
-    background: $white;
+    background: white;
     border: 0;
     border-bottom: none;
 }
