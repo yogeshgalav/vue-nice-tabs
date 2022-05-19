@@ -1,8 +1,8 @@
 <template>
   <div class="nav-tabs">
-    <nav :class="[size === 'large' ? 'tabbed-nav2' : 'tabbed-nav']">
-      <div class="tabbed-nav1">
-        <ul :class="['nav tabbed-nav-list', align]">
+    <nav :class="['nav', navClass]">
+      <div class="">
+        <ul :class="['nav-item-list', navTabClass]">
           <li
             v-for="tab in tabs"
             :key="tab"
@@ -11,12 +11,11 @@
             <a
               ref="tabNav"
               :href="'#' + tab.replace(/ /g, '-')"
-              class="nav-link"
               :class="{
-                active: activeTab === tab,
-                'text-light-gray1':
-                  disableTab.indexOf(tab) !== -1
+                'nav-link': true,
+                'active': activeTab === tab,
               }"
+              :disabled="disableTabs.indexOf(tab) !== -1"
               @click="switchTab(tab, $event)"
             >
               <slot :name="'tab-heading-' + tab">{{ tab }} </slot>
@@ -37,93 +36,60 @@
     </nav>
   </div>
 </template>
-<style lang="scss">
+<style scoped>
+ a, a:hover, a:focus, a:active {
+      text-decoration: none;
+      color: inherit;
+ }
 .nav-tabs {
   border-bottom: none;
 }
 .nav-tabs .nav-link {
   border: 1px solid transparent;
 }
-.tabbed-nav-list {
+.nav-item-list {
     display: flex;
     flex-wrap: nowrap;
     overflow-x: scroll;
     overflow-y: hidden;
+    padding-left: 10px;
+    margin-bottom: 40px;
 }
-.tabbed-nav-list::-webkit-scrollbar {
+.nav-item-list::-webkit-scrollbar {
     display: none;
 }
-.tabbed-nav {
+.nav {
     margin-top: 0px;
 }
-.tabbed-nav-list li a {
+.nav-item-list li a {
     text-align: center;
     color: #000;
     font-weight: 800;
     padding: 6px 60px 6px 60px;
 }
-.tabbed-nav-list li a:focus,
-.tabbed-nav-list li a:hover {
+.nav-item-list li a:focus,
+.nav-item-list li a:hover {
     background: #fff;
 }
-.tabbed-nav .nav-item {
+.nav .nav-item {
     background: transparent;
     border: 0;
     border-bottom: none;
 }
 
-// Nav Tab 2
 .nav-link {
     display: block;
 }
 .nav-link .active {
     border-color: white !important;
 }
-.tabbed-nav2 .nav-item .active {
-    background: #fff;
-    // border: 1px solid #707070;
-    border-bottom: none !important;
-    color: #2f80ed !important;
-    position: relative;
-    margin-bottom: -1px;
-}
-.tabbed-nav2 .nav-item .active:focus {
-    background: #deedf9 !important;
-    color: #000 !important;
-}
-.tabbed-nav2 .nav {
-    padding-left: 10px;
-}
-.tabbed-nav2 .nav-item a {
-    text-align: center;
-    color: #000;
-    font-size: 14px;
-    padding: 6px 30px;
-    font-weight: 800;
-    cursor: pointer;
-}
-
-.tabbed-nav2 ul li a {
-    text-align: center;
-    color: #000;
-    font-weight: 800;
-    padding: 6px 60px 6px 60px;
-}
-.tabbed-nav2 ul li a:focus,
-.tabbed-nav-list li a:hover {
+.nav-item-list li a:hover {
     background: #fff;
 }
-.tabbed-nav2 .nav-item {
-    background: white;
-    border: 0;
-    border-bottom: none;
-}
-.tabbed-nav {
+.nav {
     padding: 15px;
 }
-// Nav Tab 1
-
-.tabbed-nav .nav-item .active {
+.nav .nav-item .active {
     background: #fff;
     border-bottom: 4px solid #10069f !important;
     border-radius: 5% !important;
@@ -131,15 +97,11 @@
     position: relative;
     margin-bottom: -1px;
 }
-.tabbed-nav .nav-item .active:focus {
+.nav .nav-item .active:focus {
     background: #fff !important;
     color: #10069f !important;
 }
-.tabbed-nav .nav {
-    padding-left: 10px;
-    margin-bottom: 40px;
-}
-.tabbed-nav .nav-item a {
+.nav .nav-item a {
     text-align: center;
     color: #000;
     font-size: 14px;
@@ -148,9 +110,12 @@
     cursor: pointer;
     margin-right: 20px;
 }
+.nav .nav-item a :disabled{
+    color: grey;
+}
 
 @media (max-width: 640px) {
-    .tabbed-nav .nav-item a {
+    .nav .nav-item a {
         text-align: center;
         color: #000;
         font-size: 14px;
@@ -172,19 +137,15 @@ export default {
 			type: Array,
 			default: () => []
 		},
-		disableTab: {
+		disableTabs: {
 			type: Array,
 			default: () => []
 		},
-		size: {
+		navClass: {
 			type: String,
 			default: ''
 		},
-		page: {
-			type: String,
-			default: ''
-		},
-		align: {
+		navTabClass: {
 			type: String,
 			default: ''
 		}
@@ -195,11 +156,6 @@ export default {
 		};
 	},
 	watch: {
-		page(val) {
-			if (this.tabs.includes(this.initialTab)) {
-				this.activeTab = this.initialTab;
-			}
-		},
 		initialTab(val) {
 			if (this.tabs.includes(val)) {
 				this.activeTab = val;
