@@ -1,25 +1,10 @@
+
 import VueNiceTabs from "./VueNiceTabs.vue";
 
-function install(Vue) {
-  if (install.installed) return;
-  install.installed = true;
-  Vue.use(VueNiceTabs);
-}
-
-const plugin = {
-  install
+export const Autocomplete = {
+  install: (app, options) => {
+    app.component("Tabs", VueNiceTabs);
+  }
 };
-
-let GlobalVue = null;
-if (typeof window !== "undefined") {
-  GlobalVue = window.Vue;
-} else if (typeof global !== "undefined") {
-  GlobalVue = global.vue;
-}
-if (GlobalVue) {
-  GlobalVue.use(plugin);
-}
-
-VueNiceTabs.install = install;
 
 export default VueNiceTabs;

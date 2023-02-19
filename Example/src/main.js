@@ -1,8 +1,7 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
+// import { Tabs } from 'vue-nice-tabs';
 
-Vue.config.productionTip = false
-
-new Vue({
-  render: h => h(App),
-}).$mount('#app')
+const app = createApp(App);
+// app.use(Tabs);
+app.mount('#app');
