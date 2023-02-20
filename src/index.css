@@ -65,6 +65,10 @@
     width: max-content;
 }
 
+.no-underline {
+    text-decoration-line: none;
+}
+
 @media (min-width: 768px) {
     .md\:mb-6 {
         margin-bottom: 1.5rem/* 24px */;

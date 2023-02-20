@@ -7,4 +7,6 @@
 
 <script setup>
 import  VueNiceTabs  from 'vue-nice-tabs'
+import 'vue-nice-tabs/src/index.css';
+
 </script>
