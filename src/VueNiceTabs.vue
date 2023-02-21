@@ -74,26 +74,28 @@ export default {
     },
     watch: {
         page(val) {
-            if (this.tabs.includes(this.initialTab)) 
+            if (this.tabs.includes(this.initialTab)) {
                 this.activeTab = this.initialTab;
-            
+            }
         },
         initialTab(val) {
-            if (this.tabs.includes(val)) 
+            if (this.tabs.includes(val)) {
                 this.activeTab = val;
-            
+            }
         },
     },
     mounted() {
         let hash_tab = window.location.hash;
         hash_tab = hash_tab ? hash_tab.replace('#', '') : '';
-        if (hash_tab && this.tabs.includes(hash_tab)) 
+        if (hash_tab && this.tabs.includes(hash_tab)) {
             this.activeTab = hash_tab;
-         else if (this.tabs.includes(this.initialTab)) 
+        }
+         else if (this.tabs.includes(this.initialTab)) {
             this.activeTab = this.initialTab;
-         else 
+         }
+         else {
             this.activeTab = this.tabs[0];
-        
+         }
     },
     methods: {
         switchTab(tabName, event) {
@@ -101,9 +103,9 @@ export default {
             this.activeTab = tabName;
 
             event.target.blur();
-            if (window.innerWidth >= 768) 
+            if (window.innerWidth >= 768) {
                 event.preventDefault();
-            
+            }
         },
     },
 };
